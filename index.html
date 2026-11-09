@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Shopping System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Customer Shopping Management</h1>
+
+    <form action="/add" method="POST">
+
+        <input type="text"
+               name="customer"
+               placeholder="Customer Name"
+               required>
+
+        <input type="text"
+               name="product"
+               placeholder="Product Name"
+               required>
+
+        <input type="number"
+               name="price"
+               placeholder="Price"
+               step="0.01"
+               min="0"
+               required>
+
+        <input type="number"
+               name="quantity"
+               placeholder="Quantity"
+               min="1"
+               required>
+
+        <button type="submit">Add Shopping Item</button>
+
+    </form>
+
+    <h2>Shopping Records</h2>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Action</th>
+        </tr>
+
+        {% for item in items %}
+
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.customer }}</td>
+            <td>{{ item.product }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.quantity }}</td>
+
+            <td>{{ item.price * item.quantity }}</td>
+
+            <td>
+                <a href="/delete/{{ item.id }}"
+                   onclick="return confirm('Delete this record?')">
+                   Delete
+                </a>
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
